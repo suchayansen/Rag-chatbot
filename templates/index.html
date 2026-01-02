@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Knowledge Chatbot</title>
+    <link rel="stylesheet" href="static\style.css">
+</head>
+<body>
+<div class="container">
+    <h1>AI Knowledge Chatbot</h1>
+    <p class="subtitle">Chat with your Google Document</p>
+
+    <form method="post" action="/ingest" class="ingest">
+        <input name="doc_url" placeholder="Paste public Google Docs link" required>
+        <button>Ingest</button>
+    </form>
+
+    {% if ingest_status %}
+        <p class="{{ ingest_type }}">{{ ingest_status }}</p>
+    {% endif %}
+
+    <div class="chat-box">
+        {% for m in messages %}
+            <div class="message {{ m.role }}">{{ m.content }}</div>
+        {% endfor %}
+    </div>
+
+    <form method="post" action="/chat" class="chat-input">
+        <input name="query" placeholder="Ask a question..." required>
+        <button>Send</button>
+    </form>
+</div>
+</body>
+</html>
